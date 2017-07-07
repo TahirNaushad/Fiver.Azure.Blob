@@ -1,0 +1,28 @@
+﻿@model Fiver.Azure.Blob.Client.Models.Home.FilesViewModel
+
+<form asp-controller="Home" asp-action="UploadFile" method="post"
+      enctype="multipart/form-data">
+    
+    <input type="text" name="folder" placeholder="Folder" />
+    <input type="file" name="file" />
+    <button type="submit">Upload File</button>
+</form>
+
+<p>List of Blobs</p>
+
+<ul>
+    @foreach (var item in Model.Files)
+    {
+        <li>
+            <a asp-action="Download"
+               asp-route-blobName="@item.BlobName" asp-route-name="@item.Name">
+                Download
+            </a>
+            <a asp-action="Delete"
+               asp-route-blobName="@item.BlobName">
+                Delete
+            </a>
+            @item.Name
+        </li>
+    }
+</ul>
