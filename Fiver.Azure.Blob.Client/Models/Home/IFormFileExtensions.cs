@@ -10,7 +10,7 @@ namespace Fiver.Azure.Blob.Client.Models.Home
         public static string GetFilename(this IFormFile file)
         {
             return ContentDispositionHeaderValue.Parse(
-                            file.ContentDisposition).FileName.Trim('"');
+                            file.ContentDisposition).FileName.ToString().Trim('"');
         }
 
         public static async Task<MemoryStream> GetFileStream(this IFormFile file)

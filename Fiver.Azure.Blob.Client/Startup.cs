@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 
 namespace Fiver.Azure.Blob.Client
@@ -14,19 +8,12 @@ namespace Fiver.Azure.Blob.Client
     public class Startup
     {
         public Startup(
-            IHostingEnvironment env,
-            ILoggerFactory loggerFactory)
+            IConfiguration configuration)
         {
-            var builder = new ConfigurationBuilder()
-                                .SetBasePath(env.ContentRootPath)
-                                .AddJsonFile("appsettings.json")
-                                .AddJsonFile($"appsettings.{env.EnvironmentName}.json")
-                                .AddEnvironmentVariables();
-
-            Configuration = builder.Build();
+           Configuration = configuration;
         }
 
-        public static IConfigurationRoot Configuration;
+        public static IConfiguration Configuration;
 
         public void ConfigureServices(
             IServiceCollection services)
@@ -44,8 +31,7 @@ namespace Fiver.Azure.Blob.Client
 
         public void Configure(
             IApplicationBuilder app, 
-            IHostingEnvironment env, 
-            ILoggerFactory loggerFactory)
+            IHostingEnvironment env)
         {
             app.UseDeveloperExceptionPage();
             app.UseMvcWithDefaultRoute();
