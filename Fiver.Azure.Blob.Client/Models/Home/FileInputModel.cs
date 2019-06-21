@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace Fiver.Azure.Blob.Client.Models.Home
 {
     public class FileInputModel
     {
         public string Folder { get; set; }
-        public IFormFile File { get; set; }
+        public List<IFormFile> File { get; set; }
     }
 }
