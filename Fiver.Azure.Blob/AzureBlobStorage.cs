@@ -127,7 +127,7 @@ namespace Fiver.Azure.Blob
         {
             //Account
             CloudStorageAccount storageAccount = new CloudStorageAccount(
-                new StorageCredentials(settings.StorageAccount, settings.StorageKey), false);
+                new StorageCredentials(settings.StorageAccount, settings.StorageKey), settings.UseHttps);
 
             //Client
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
