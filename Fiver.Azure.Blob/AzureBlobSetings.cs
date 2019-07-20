@@ -30,7 +30,18 @@ namespace Fiver.Azure.Blob
             this.UseHttps = useHttps;
         }
 
+        public AzureBlobSetings(string storageAccount,
+            string storageKey,
+            string containerName,
+            bool useHttps,
+            bool assumeContainerExists) : this(storageAccount, storageKey, containerName, useHttps)
+        {
+            this.AssumeContainerExists = assumeContainerExists;
+        }
+
         public bool UseHttps { get; }
+
+        public bool AssumeContainerExists { get; }
 
         public string StorageAccount { get; }
         public string StorageKey { get; }

@@ -134,7 +134,10 @@ namespace Fiver.Azure.Blob
 
             //Container
             CloudBlobContainer blobContainer = blobClient.GetContainerReference(settings.ContainerName);
-            await blobContainer.CreateIfNotExistsAsync();
+            if (!settings.AssumeContainerExists)
+            {
+                await blobContainer.CreateIfNotExistsAsync();
+            }
             //await blobContainer.SetPermissionsAsync(new BlobContainerPermissions() { PublicAccess = BlobContainerPublicAccessType.Blob });
 
             return blobContainer;
