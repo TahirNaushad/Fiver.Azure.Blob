@@ -127,14 +127,17 @@ namespace Fiver.Azure.Blob
         {
             //Account
             CloudStorageAccount storageAccount = new CloudStorageAccount(
-                new StorageCredentials(settings.StorageAccount, settings.StorageKey), false);
+                new StorageCredentials(settings.StorageAccount, settings.StorageKey), settings.UseHttps);
 
             //Client
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
             //Container
             CloudBlobContainer blobContainer = blobClient.GetContainerReference(settings.ContainerName);
-            await blobContainer.CreateIfNotExistsAsync();
+            if (!settings.AssumeContainerExists)
+            {
+                await blobContainer.CreateIfNotExistsAsync();
+            }
             //await blobContainer.SetPermissionsAsync(new BlobContainerPermissions() { PublicAccess = BlobContainerPublicAccessType.Blob });
 
             return blobContainer;
